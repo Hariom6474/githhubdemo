@@ -5,9 +5,15 @@ function getFormValue(e) {
   const phone = document.getElementById("phone").value;
   const date = document.getElementById("date").value;
   const time = document.getElementById("time").value;
-  localStorage.setItem('name', name);
-  localStorage.setItem('email', email);
-  localStorage.setItem('phone', phone);
-  localStorage.setItem('date', date);
-  localStorage.setItem('time', time);
+  let myObj = {
+    name: name,
+    email: email,
+    phone: phone,
+    date: date,
+    time: time,
+  };
+  localStorage.setItem("myObj", JSON.stringify(myObj));
+  // deserialized can be used if we had to change the value
+  let deserialized = JSON.parse(JSON.stringify(myObj));
+  console.log(deserialized);
 }
