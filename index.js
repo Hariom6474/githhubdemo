@@ -23,10 +23,10 @@ function getFormValue(e) {
   button.type = "button";
   button.value = "Delete";
   button.id = "myButton";
+  li.appendChild(document.createTextNode(`${name} - ${email} - ${phone}`));
   li.appendChild(button);
   li.appendChild(editBtn);
   li.className = "list-group-items";
-  li.appendChild(document.createTextNode(`${name} - ${email} - ${phone}`));
   if (ulist) {
     ulist.appendChild(li);
   }
@@ -47,7 +47,17 @@ function getFormValue(e) {
       ulist.removeChild(li);
     }
   };
-  localStorage.setItem(email, elem);
+  // localStorage.setItem(email, elem);
+  axios
+    .post(
+      "https://crudcrud.com/api/47698c601bb3453eac50678967d98428/appointmentData",
+      myObj
+    )
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((err) => console.log(err));
+
   // deserialized can be used if we had to change the value
   // let deserialized = JSON.parse(elem);
   document.getElementById("name").value = "";
