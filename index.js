@@ -8,13 +8,13 @@ function getFormValue(e) {
     email: email,
     phone: phone,
   };
-  showUserOnScreen(myObj);
   axios
     .post(
-      "https://crudcrud.com/api/47698c601bb3453eac50678967d98428/appointmentData",
+      "https://crudcrud.com/api/1378906cc4124c9496bdc6dbd9dc7551/appointmentData",
       myObj
     )
     .then((response) => {
+      showUserOnScreen(myObj);
       console.log(response.data);
     })
     .catch((err) => console.error(err));
@@ -47,7 +47,7 @@ function showUserOnScreen(myObj) {
     if (li && appointmentId) {
       axios
         .delete(
-          `https://crudcrud.com/api/47698c601bb3453eac50678967d98428/appointmentData/${appointmentId}`
+          `https://crudcrud.com/api/1378906cc4124c9496bdc6dbd9dc7551/appointmentData/${appointmentId}`
         )
         .then((res) => ulist.removeChild(li))
         .catch((err) => console.error(err));
@@ -56,13 +56,18 @@ function showUserOnScreen(myObj) {
   editBtn.onclick = (e) => {
     let li = e.target.closest("li");
     if (li) {
-      localStorage.removeItem(myObj.email);
+      axios
+        .delete(
+          `https://crudcrud.com/api/1378906cc4124c9496bdc6dbd9dc7551/appointmentData/${myObj._id}`
+        )
+        .then((res) => ulist.removeChild(li))
+        .catch((err) => console.error(err));
       document.getElementById("name").value = myObj.name;
       document.getElementById("email").value = myObj.email;
       document.getElementById("phone").value = myObj.phone;
-      ulist.removeChild(li);
     }
   };
+  // e.target.reset();
   document.getElementById("name").value = "";
   document.getElementById("email").value = "";
   document.getElementById("phone").value = "";
@@ -71,7 +76,7 @@ function showUserOnScreen(myObj) {
 window.addEventListener("DOMContentLoaded", () => {
   axios
     .get(
-      "https://crudcrud.com/api/47698c601bb3453eac50678967d98428/appointmentData"
+      "https://crudcrud.com/api/1378906cc4124c9496bdc6dbd9dc7551/appointmentData"
     )
     .then((response) => {
       for (let i = 0; i < response.data.length; i++) {
