@@ -43,9 +43,14 @@ function showUserOnScreen(myObj) {
   }
   button.addEventListener("click", function (e) {
     let li = e.target.closest("li");
-    if (li) {
-      localStorage.removeItem(myObj.email);
-      ulist.removeChild(li);
+    let appointmentId = myObj._id;
+    if (li && appointmentId) {
+      axios
+        .delete(
+          `https://crudcrud.com/api/47698c601bb3453eac50678967d98428/appointmentData/${appointmentId}`
+        )
+        .then((res) => ulist.removeChild(li))
+        .catch((err) => console.error(err));
     }
   });
   editBtn.onclick = (e) => {
